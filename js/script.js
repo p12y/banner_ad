@@ -66,6 +66,12 @@ window.onload = function(){
 		// after the background is drawn on the canvas draw and animate the content for frame 1.
 		setTimeout(frame1, 100);
 	}
+
+	function stopAnimation() {
+		createjs.Ticker.removeEventListener("tick", handleTick);
+	}
+
+	setTimeout(stopAnimation, 15000);
 	
 	function frame1() {
 		console.log("draw and animate frame one.");
@@ -177,7 +183,6 @@ window.onload = function(){
 			.to({alpha: 0.5}, 100)
 			.to({x: 300}, 300)
 			.to({alpha: 0}, 300);
-
 	}
 	
 };
