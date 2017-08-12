@@ -68,7 +68,14 @@ window.onload = function(){
 	}
 
 	function stopAnimation() {
+		console.log("All animations have been stopped");
 		createjs.Ticker.removeEventListener("tick", handleTick);
+	}
+
+	function hideElements(array) {
+		for(var i = 0; i < array.length; i++) {
+			array[i].alpha = 0;
+		}
 	}
 
 	// Stop all animations after 15 seconds
@@ -81,14 +88,13 @@ window.onload = function(){
 		skyLogo = new createjs.Bitmap( loader.getResult( "skyLogo" ) );
 		twoProducts = new createjs.Bitmap( loader.getResult( "fr1TwoProducts" ) );
 
-		stage.addChild( skyLogo );
-		stage.addChild( twoProducts );
+		// Hide elements before adding to the canvas
+		hideElements([gradientText, blueText]);
 
-		gradientText.alpha = 0
-		blueText.alpha = 0
+		// Add elements to canvas
+		stage.addChild(skyLogo, twoProducts, gradientText, blueText);
 
-		stage.addChild( gradientText, blueText );
-
+		// Animate elements
 		createjs.Tween.get(gradientText)
 			.to({alpha: 1}, 1000)
 			.wait(3000)
@@ -113,12 +119,16 @@ window.onload = function(){
 		gradientText = new createjs.Bitmap( loader.getResult( "fr2GradientText" ) );
 		greyCopy = new createjs.Bitmap( loader.getResult( "fr2GreyCopy" ) );
 		
-		gradientText.alpha = 0;
-		greyCopy.alpha = 0;
+		// Hide elements before adding to the canvas
+		hideElements([gradientText, greyCopy])
+
+		// Start with stamp position off canvas
 		gradientStamp.y = -250;
 
+		// Add elements to canvas
 		stage.addChild(gradientText, greyCopy, gradientStamp);
 
+		// Animate elements
 		createjs.Tween.get(gradientText)
 			.to({alpha: 1}, 1000)
 			.wait(3000)
@@ -142,36 +152,35 @@ window.onload = function(){
 	
 	function frame3() {
 		console.log("draw and animate frame three.");
+		var sheen = new createjs.Shape();
+		var blurFilter = new createjs.BlurFilter(5, 5, 1);
+		var bounds = blurFilter.getBounds();
+
 		blueCopy = new createjs.Bitmap( loader.getResult( "fr3BlueCopy" ) );
 		cta = new createjs.Bitmap( loader.getResult( "fr3Cta" ) );
 		gradientText = new createjs.Bitmap( loader.getResult( "fr3GradientText" ) );
 		greyCopy = new createjs.Bitmap( loader.getResult( "fr3GreyCopy" ) );
 		limitedTimeOffer = new createjs.Bitmap( loader.getResult( "fr3LimitedTimeOffer" ) );
 
-		gradientText.alpha = 0;
-		blueCopy.alpha = 0;
-		limitedTimeOffer.alpha = 0;
-		greyCopy.alpha = 0;
+		// Hide elements before adding to the canvas
+		hideElements([gradientText, blueCopy, limitedTimeOffer, greyCopy, sheen]);
 
-		var sheen = new createjs.Shape();
-
+		// Style sheen element
 		sheen.graphics
 			.beginFill("#fff")
 			.drawRect(0, 0, 20, 50);
 		sheen.skewX = 50
-		sheen.alpha = 0;
-
-		
-
-		var blurFilter = new createjs.BlurFilter(5, 5, 1);
 		sheen.filters = [blurFilter];
-		var bounds = blurFilter.getBounds();
 		sheen.cache(-50+bounds.x, -50+bounds.y, 100+bounds.width, 100+bounds.height);
 		
+		// Add elements to canvas
 		stage.addChild(cta, sheen, gradientText, blueCopy, limitedTimeOffer, greyCopy);
 
+		// Animate elements
 		createjs.Tween.get(gradientText).to({alpha: 1}, 1000);
-		createjs.Tween.get(blueCopy).wait(1000).to({alpha: 1}, 1000);
+		createjs.Tween.get(blueCopy)
+			.wait(1000)
+			.to({alpha: 1}, 1000);
 		createjs.Tween.get(limitedTimeOffer)
 			.wait(2000)
 			.to({alpha: 1}, 1000);
@@ -185,5 +194,4 @@ window.onload = function(){
 			.to({x: 300}, 300)
 			.to({alpha: 0}, 300);
 	}
-	
 };
