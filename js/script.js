@@ -68,6 +68,7 @@ window.onload = function(){
 	}
 
 	function stopAnimation() {
+		console.log("STOP!");
 		createjs.Ticker.removeEventListener("tick", handleTick);
 	}
 
