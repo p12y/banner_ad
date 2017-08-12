@@ -68,10 +68,10 @@ window.onload = function(){
 	}
 
 	function stopAnimation() {
-		console.log("STOP!");
 		createjs.Ticker.removeEventListener("tick", handleTick);
 	}
 
+	// Stop all animations after 15 seconds
 	setTimeout(stopAnimation, 15000);
 	
 	function frame1() {
