@@ -77,12 +77,13 @@ window.onload = function(){
 			array[i].alpha = 0;
 		}
 	}
-
-	// Stop all animations after 15 seconds
-	setTimeout(stopAnimation, 15000);
 	
 	function frame1() {
 		console.log("draw and animate frame one.");
+		
+		// Stop all animations after 15 seconds
+		setTimeout(stopAnimation, 15000);
+
 		blueText = new createjs.Bitmap( loader.getResult( "fr1BlueText" ) );
 		gradientText = new createjs.Bitmap( loader.getResult( "fr1GradientText" ) );
 		skyLogo = new createjs.Bitmap( loader.getResult( "skyLogo" ) );
