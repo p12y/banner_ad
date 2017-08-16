@@ -4,6 +4,15 @@ window.onload = function(){
 	
 	// declare your variables here.
 	var background;
+	var blueText;
+	var gradientText;
+	var skyLogo;
+	var twoProducts;
+	var gradientStamp;
+	var greyCopy;
+	var blueCopy;
+	var cta;
+	var limitedTimeOffer;
 	
 	// store a reference to the canvas which we will draw on.
 	var stage = new createjs.Stage("stage");
